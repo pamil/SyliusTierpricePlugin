@@ -13,10 +13,11 @@ declare(strict_types=1);
 namespace Brille24\TierPriceBundle\Services;
 
 use Brille24\TierPriceBundle\Entity\{
-    ProductVariant, TierPriceInterface
+    ProductVariant, TierPrice, TierPriceInterface
 };
 use Brille24\TierPriceBundle\Repository\TierPriceRepository;
 use Brille24\TierPriceBundle\Traits\TierPriceableInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Webmozart\Assert\Assert;
 
@@ -32,9 +33,9 @@ class TierPriceFinder implements TierPriceFinderInterface
     /** @var TierPriceRepository */
     private $tierPriceRepository;
 
-    public function __construct(TierPriceRepository $tierPriceRepository)
+    public function __construct(EntityManagerInterface $tierPriceRepository)
     {
-        $this->tierPriceRepository = $tierPriceRepository;
+        $this->tierPriceRepository = $tierPriceRepository->getRepository(TierPrice::class);
     }
 
     /**

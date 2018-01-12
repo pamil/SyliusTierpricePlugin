@@ -17,10 +17,10 @@ use Brille24\TierPriceBundle\Entity\{ProductVariant, TierPriceInterface};
 use Doctrine\Common\Persistence\ObjectRepository;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Resource\Model\ResourceInterface;
 
 class TierPriceRepository extends EntityRepository implements ObjectRepository
 {
-
     /**
      * Gets all tier prices for a product variant for a channel with quantity in ascending order
      *

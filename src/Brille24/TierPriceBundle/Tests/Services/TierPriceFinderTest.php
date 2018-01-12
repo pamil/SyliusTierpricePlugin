@@ -16,6 +16,7 @@ use Brille24\TierPriceBundle\Entity\ProductVariant;
 use Brille24\TierPriceBundle\Entity\TierPrice;
 use Brille24\TierPriceBundle\Repository\TierPriceRepository;
 use Brille24\TierPriceBundle\Services\TierPriceFinder;
+use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 
 class TierPriceFinderTest extends \PHPUnit_Framework_TestCase
@@ -40,8 +41,12 @@ class TierPriceFinderTest extends \PHPUnit_Framework_TestCase
     ) {
         parent::__construct($name, $data, $dataName);
 
-        $this->tierPriceRepo      = $this->createMock(TierPriceRepository::class);
-        $this->tierPriceFinder    = new TierPriceFinder($this->tierPriceRepo);
+        $this->tierPriceRepo = $this->createMock(TierPriceRepository::class);
+        
+        $em = $this->createMock(EntityManagerInterface::class);
+        $em->method('getRepository')->willReturn($this->tierPriceRepo);
+
+        $this->tierPriceFinder    = new TierPriceFinder($em);
         $this->testProductVariant = new ProductVariant();
 
         $this->testChannel = $this->createMock(ChannelInterface::class);
