@@ -70,6 +70,7 @@ before_script:
 script:
     - composer validate --strict
     - bin/phpstan analyse -c phpstan.neon -l max src/
+    - bin/ecs check --config etc/code-standard.yml src/
 
     - bin/phpunit
     - bin/phpspec run
